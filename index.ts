@@ -10,7 +10,7 @@ app.get('/', (_req, res) => {
 
 app.get('/hello', (_req, res) => {
   res.send('Hello World!');
-});
+}
 
 // Start the server
 app.listen(port, () => {
