@@ -1,0 +1,20 @@
+name: Verify Secret in Prod
+
+on:
+  push:
+    branches:
+      - release
+
+env:
+  ENV: release  # Default environment
+
+jobs:
+  verify-secret:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Output Secret
+        run: echo ${{ secrets.MY_SECRET }}
