@@ -5,12 +5,10 @@ on:
     branches:
       - release
 
-env:
-  ENV: release  # Default environment
-
 jobs:
   verify-secret:
     runs-on: ubuntu-latest
+    environment: release
 
     steps:
       - name: Check out repository
