@@ -1,10 +1,14 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 
 const app = express();
 const port = 3000;
 
 // Define a simple route
-app.get('/', (_req: Request, res: Response) => {
+app.get('/', (_req, res) => {
+  res.send('Hello World!');
+});
+
+app.get('/hello', (_req, res) => {
   res.send('Hello World!');
 });
 

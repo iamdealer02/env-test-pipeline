@@ -1,0 +1,47 @@
+name: Verify Secret in Prod
+
+on:
+  push:
+    branches:
+      - release
+      - preprod
+      - prod
+      - dev
+
+jobs:
+  set-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      env: ${{ steps.set-env.outputs.env }}
+
+    steps:
+      - name: Set Environment Variable
+        id: set-env
+        run: |
+          case "${{ github.ref }}" in
+            refs/heads/main)
+              echo "env=prod" ;;
+            refs/heads/preprod)
+              echo "env=preprod" ;;
+            refs/heads/release)
+              echo "env=release" ;;
+            refs/heads/dev)
+              echo "env=dev" ;;
+            *)
+              echo "::error::Unsupported branch ${{ github.ref }}"
+              exit 1
+              ;;
+          esac
+
+      
+  verify-secret:
+    runs-on: ubuntu-latest
+    environment:  ${{ needs.set-environment.outputs.env }}
+    needs: set-environment
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Output Secret
+        run: echo ${{ secrets.MY_SECRET }}
