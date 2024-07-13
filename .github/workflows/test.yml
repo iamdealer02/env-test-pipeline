@@ -4,11 +4,36 @@ on:
   push:
     branches:
       - release
+      - preprod
+      - prod
+      - dev
 
 jobs:
+  set-environment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set Environment Variable to Prod
+        if: github.ref == 'refs/heads/main'
+        run: echo "ENV=prod" >> $GITHUB_ENV
+
+      - name: Set Environment Variable to Preprod
+        if: github.ref == 'refs/heads/preprod'
+        run: echo "ENV=preprod" >> $GITHUB_ENV
+
+      - name: Set Environment Variable to Release
+        if: github.ref == 'refs/heads/release'
+        run: echo "ENV=release" >> $GITHUB_ENV
+
+      - name: Set Environment Variable to Dev
+        if: github.ref == 'refs/heads/dev'
+        run: echo "ENV=dev" >> $GITHUB_ENV
+
+      
   verify-secret:
     runs-on: ubuntu-latest
-    environment: release
+    environment: env.ENV
+    needs: set-environment
 
     steps:
       - name: Check out repository
