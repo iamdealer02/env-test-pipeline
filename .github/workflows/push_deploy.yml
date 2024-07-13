@@ -3,7 +3,10 @@ name: Deployment Workflow
 on:
   push:
     branches:
+      - release
+      - preprod
       - prod
+      - dev
 
 jobs:
   checks-build:
