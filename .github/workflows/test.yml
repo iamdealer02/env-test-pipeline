@@ -8,6 +8,9 @@ on:
       - prod
       - dev
 
+    paths-ignore:
+      - '**' 
+
 jobs:
   set-environment:
     runs-on: ubuntu-latest
