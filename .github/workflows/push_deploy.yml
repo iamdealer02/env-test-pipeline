@@ -3,7 +3,7 @@ name: Deployment Workflow
 on:
   push:
     branches:
-      - prod
+      - dev_test
 
 jobs:
   build:
