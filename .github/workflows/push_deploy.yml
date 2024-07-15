@@ -37,8 +37,6 @@ jobs:
       name: ${{ github.ref_name }}
     
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
 
     - name: Environemnt
       run: echo ${{ github.ref_name }}
